@@ -77,7 +77,7 @@ const Header = () => {
                       }}
                     >
                       <Grid container justifyContent="space-evenly" alignItems="center">
-                        <Grid item xs={2}>
+                        <Grid item xs={3} sm={2} md={2} lg={2} xl={2}>
                           <Checkbox 
                             checked={ingredientFilters?.some((filter) => filter === option?.name)}
                             sx={{
@@ -87,7 +87,7 @@ const Header = () => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={9} sm={10} md={10} lg={10} xl={10}>
                           <Typography
                             sx={{
                               fontSize: "16px",

@@ -103,7 +103,7 @@ const CookingCard = ({ recipe }: Props) => {
                             height: "32px",
                           }}
                         >
-                          {i}
+                          {i + 1}
                         </Avatar>
                       </Grid>
                       <Grid item xs={10} sm={11} md={11} lg={11} xl={11}>
