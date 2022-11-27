@@ -11,8 +11,6 @@ export const getRecipiesInfo = () => {
     })
       .then((res) => res.json())
       .then((recipeResults: RecipesResponse) => {
-        console.log(recipeResults);
-
         dispatch({
           type: recipesConstants.GET_RECIPIES_INFO_SUCCESS,
           payload: {

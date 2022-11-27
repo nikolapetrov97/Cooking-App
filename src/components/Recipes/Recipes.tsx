@@ -2,6 +2,7 @@
 import { Grid } from "@mui/material";
 import { useMemo } from "react";
 import { useAppSelector } from "../../store";
+import { filterRecipes } from "../../utils/helpers";
 import CookingCard from "../CookingCard/CookingCard";
 
 const Recipes = () => {
@@ -9,15 +10,8 @@ const Recipes = () => {
   const ingredientFilters = useAppSelector((state) => state.recipesInfo?.ingredientFilters);
 
   const filteredRecipes = useMemo(() => {
-    if (ingredientFilters?.length === 0) {
-      return recipes;
-    }
-    return recipes?.filter((recipe) => {
-      if (ingredientFilters?.some((ingredient) => recipe?.ingredients?.some((filter) => filter?.includes(ingredient)))) {
-        return true;
-      }
-      return false;
-    });
+    // FILTER RECIPES IF THERE ARE INGREDIENT FILTERS FROM THE HEADER COMPONENT
+    return filterRecipes(recipes, ingredientFilters);
   }, [recipes, ingredientFilters]);
 
   return (

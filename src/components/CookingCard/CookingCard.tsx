@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import { Recipe } from "../../utils/interfaces";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Modal, Box, Grid, Typography, Backdrop, Fade, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
@@ -19,7 +19,6 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
 };
 
 type Props = {
@@ -27,7 +26,7 @@ type Props = {
 };
 
 const CookingCard = ({ recipe }: Props) => {
-  const phoneMediaQuery = useMediaQuery("(max-width:600px)");
+  const phoneMediaQuery = useMediaQuery("(max-width:700px)");
   const [modalInfo, setModalInfo] = useState<{
     open: boolean;
     info: { step: number; text: string }[];
@@ -36,8 +35,8 @@ const CookingCard = ({ recipe }: Props) => {
     info: [],
   });
 
-  const handleOpen = (info: { step: number; text: string }[]) => setModalInfo({ open: true, info });
-  const handleClose = () => setModalInfo({ open: false, info: [] });
+  const handleOpen = useCallback((info: { step: number; text: string }[]) => setModalInfo({ open: true, info }), [])
+  const handleClose = useCallback(() => setModalInfo({ open: false, info: [] }), [])
 
   return (
     <>
@@ -53,7 +52,7 @@ const CookingCard = ({ recipe }: Props) => {
         }}
       >
         <Fade in={modalInfo?.open}>
-          <Box sx={{ ...style, width: phoneMediaQuery ? "80%": "70%", ...(phoneMediaQuery && {overflow: "scroll", height: "100%"}) }}>
+          <Box sx={{ ...style, ...(phoneMediaQuery && {overflow: "scroll", height: "100%", width: "80%" }) }}>
             <Grid container justifyContent="flex-end" alignItems="center">
               <IconButton
                 aria-label="close"
@@ -67,13 +66,14 @@ const CookingCard = ({ recipe }: Props) => {
                   return (
                     <Grid
                       container
+                      justifyContent="center"
                       key={preparationStep?.step}
-                      sx={{ marginBottom: "20px" }}
+                      sx={{ marginBottom: "24px", padding: "0 32px 0px 32px" }}
                     >
-                      <Grid item xs={3}>
-                        <Avatar sx={{ bgcolor: "#3593E9" }}>{i}</Avatar>
+                      <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
+                        <Avatar sx={{ bgcolor: "#3593E9", width: "32px", height: "32px" }}>{i}</Avatar>
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={10} sm={11} md={11} lg={11} xl={11}>
                         <Typography>{preparationStep?.text}</Typography>
                       </Grid>
                     </Grid>
@@ -84,7 +84,7 @@ const CookingCard = ({ recipe }: Props) => {
         </Fade>
       </Modal>
       <Card>
-        <CardHeader title={recipe?.title} subheader={recipe?.timeToPrepare} />
+        <CardHeader sx={{ paddingBottom: 0 }} title={recipe?.title} subheader={recipe?.timeToPrepare} />
         <CardContent
           sx={{
             display: "flex",

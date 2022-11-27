@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { addFilterIngredient, removeFilterIngredient } from "../../actions/recipies.actions";
 import { useAppDispatch, useAppSelector } from "../../store";
+import { capitalize } from '@mui/material';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -84,16 +85,23 @@ const Header = () => {
                         alignItems="center"
                       >
                         <Grid item xs={2}>
-                          <Checkbox checked={ingredientFilters?.some((filter) => filter === option?.name)} />
+                          <Checkbox 
+                            checked={ingredientFilters?.some((filter) => filter === option?.name)}
+                            sx={{
+                              '&.Mui-checked': {
+                                color: "#F60257",
+                              },
+                            }}
+                          />
                         </Grid>
                         <Grid item xs={10}>
                           <Typography
                             sx={{
                               fontSize: "16px",
-                              fontWeight: "bold",
+                              fontWeight: "400",
                             }}
                           >
-                            {option?.name}
+                            {capitalize(option?.name)}
                           </Typography>
                         </Grid>
                       </Grid>
