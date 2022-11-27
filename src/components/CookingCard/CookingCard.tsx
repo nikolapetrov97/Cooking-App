@@ -6,7 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import { Recipe } from "../../utils/interfaces";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { Modal, Box, Grid, Typography, Backdrop, Fade, useMediaQuery } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Grid,
+  Typography,
+  Backdrop,
+  Fade,
+  useMediaQuery,
+} from "@mui/material";
 import { useCallback, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -35,12 +43,20 @@ const CookingCard = ({ recipe }: Props) => {
     info: [],
   });
 
-  const handleOpen = useCallback((info: { step: number; text: string }[]) => setModalInfo({ open: true, info }), [])
-  const handleClose = useCallback(() => setModalInfo({ open: false, info: [] }), [])
+  const handleOpen = useCallback(
+    (info: { step: number; text: string }[]) =>
+      setModalInfo({ open: true, info }),
+    []
+  );
+  const handleClose = useCallback(
+    () => setModalInfo({ open: false, info: [] }),
+    []
+  );
 
   return (
     <>
       <Modal
+        data-testid="recipe-dialog"
         open={modalInfo?.open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -52,7 +68,16 @@ const CookingCard = ({ recipe }: Props) => {
         }}
       >
         <Fade in={modalInfo?.open}>
-          <Box sx={{ ...style, ...(phoneMediaQuery && {overflow: "scroll", height: "100%", width: "80%" }) }}>
+          <Box
+            sx={{
+              ...style,
+              ...(phoneMediaQuery && {
+                overflow: "scroll",
+                height: "90%",
+                width: "80%",
+              }),
+            }}
+          >
             <Grid container justifyContent="flex-end" alignItems="center">
               <IconButton
                 aria-label="close"
@@ -71,7 +96,15 @@ const CookingCard = ({ recipe }: Props) => {
                       sx={{ marginBottom: "24px", padding: "0 32px 0px 32px" }}
                     >
                       <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
-                        <Avatar sx={{ bgcolor: "#3593E9", width: "32px", height: "32px" }}>{i}</Avatar>
+                        <Avatar
+                          sx={{
+                            bgcolor: "#3593E9",
+                            width: "32px",
+                            height: "32px",
+                          }}
+                        >
+                          {i}
+                        </Avatar>
                       </Grid>
                       <Grid item xs={10} sm={11} md={11} lg={11} xl={11}>
                         <Typography>{preparationStep?.text}</Typography>
@@ -84,7 +117,12 @@ const CookingCard = ({ recipe }: Props) => {
         </Fade>
       </Modal>
       <Card>
-        <CardHeader sx={{ paddingBottom: 0 }} title={recipe?.title} subheader={recipe?.timeToPrepare} />
+        <CardHeader
+          data-testid="card-header"
+          sx={{ paddingBottom: 0 }}
+          title={recipe?.title}
+          subheader={recipe?.timeToPrepare}
+        />
         <CardContent
           sx={{
             display: "flex",
@@ -105,7 +143,8 @@ const CookingCard = ({ recipe }: Props) => {
         <CardActions disableSpacing>
           <IconButton
             onClick={() => handleOpen(recipe?.preparationMethod)}
-            aria-label="add to favorites"
+            aria-label="open recipe dialog"
+            data-testid="modal-button"
           >
             <OpenInNewIcon />
           </IconButton>

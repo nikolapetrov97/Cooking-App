@@ -50,7 +50,7 @@ const Header = () => {
           <Box>
             {ingredients?.length > 0 && (
               <Autocomplete
-                sx={{ minWidth: "328px", marginTop: phoneMediaQuery ? "10px" : 0 }}
+                sx={{ minWidth: "328px", ...(phoneMediaQuery && { marginTop: "10px", minWidth: "200px", maxWidth: "250px" })}}
                 getOptionLabel={(option: any) => option?.name || ""}
                 id="combo-box-demo"
                 options={ingredients}
@@ -63,10 +63,7 @@ const Header = () => {
                     variant="outlined"
                   />
                 )}
-                renderOption={(
-                  props: React.HTMLAttributes<HTMLLIElement>,
-                  option: any
-                ) => {
+                renderOption={(props: React.HTMLAttributes<HTMLLIElement>, option: any) => {
                   return (
                     <li
                       {...props}
@@ -79,11 +76,7 @@ const Header = () => {
                         }
                       }}
                     >
-                      <Grid
-                        container
-                        justifyContent="space-evenly"
-                        alignItems="center"
-                      >
+                      <Grid container justifyContent="space-evenly" alignItems="center">
                         <Grid item xs={2}>
                           <Checkbox 
                             checked={ingredientFilters?.some((filter) => filter === option?.name)}

@@ -1,8 +1,10 @@
+import { endSpinner, startSpinner } from "../utils/globalHandlers/spinnerhelper";
 import { RecipesResponse } from "../utils/interfaces";
 import { recipesConstants } from "./constants";
 
 export const getRecipiesInfo = () => {
   return async (dispatch: any) => {
+    startSpinner();
     dispatch({
       type: recipesConstants.GET_RECIPIES_INFO_REQUEST,
     });
@@ -18,6 +20,7 @@ export const getRecipiesInfo = () => {
             ingredients: recipeResults?.ingredients,
           },
         });
+        endSpinner();
       });
   };
 };
