@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useAppSelector } from "../../store";
 import { filterRecipes } from "../../utils/helpers";
@@ -30,7 +30,11 @@ const Recipes = () => {
               </Grid>
             );
           })
-        : null}
+        : (
+          <Grid container justifyContent="center" alignItems="center" mt={3}>
+            <Typography>No recipes</Typography>
+          </Grid>
+        )}
     </Grid>
   );
 };

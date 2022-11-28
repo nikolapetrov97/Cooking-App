@@ -20,8 +20,8 @@ export const getRecipiesInfo = () => {
             ingredients: recipeResults?.ingredients,
           },
         });
-        endSpinner();
-      });
+      })
+      .finally(() => endSpinner())
   };
 };
 
